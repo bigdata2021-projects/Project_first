@@ -90,7 +90,7 @@ def var_percent_act(el):
 
 
 # (month ,(ticker, name ,percent_variation))
-var_act_RDD = join_date_RDD.map(f=var_percent_act())
+var_act_RDD = join_date_RDD.map(f=var_percent_act)
 
 # (month , [(ticker1,name,var),(ticker1,name,var), ..]
 month_var_percent_RDD = var_act_RDD.groupByKey().mapValues(list)
@@ -108,7 +108,7 @@ def similiar_pairs(l):
 
 
 # (month ,[((ticker1,name,var_percent),(ticker2,name,var_percent),....)]
-month_similiar_pairs_RDD = month_var_percent_RDD.mapValues(f=similiar_pairs())
+month_similiar_pairs_RDD = month_var_percent_RDD.mapValues(f=similiar_pairs)
 
 
 def to_print(element):
