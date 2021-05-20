@@ -58,7 +58,6 @@ def build_RDD(el):
 # (ticker, name ,year, date, sector , close_act, volume)
 stock_join = stock_prices_RDD.join(stock_RDD).map(f=build_RDD)
 
-
 # PUNTO C
 # (sector, year , ticker), volume)
 sector_year_ticker_volume_RDD = stock_join.map(f=lambda l: ((l[4], l[2], l[0]), l[6]))
@@ -108,12 +107,12 @@ sector_year_ticker_datemax_close_RDD = sector_year_ticker_date_close_RDD.reduceB
 # (sector, year , ticker), (date_min,close) -->>
 # (sector, year ), close_min_date) -->>
 # (sector, year ), sum_close_min_date)
-sector_year_datemin_sum_close_RDD = sector_year_ticker_datemin_close_RDD.map(f=lambda l: ((l[0][0], l[0][1]), l[1][1])) \
+sector_year_datemin_sum_close_RDD = sector_year_ticker_datemin_close_RDD.map(f=lambda l: ((l[0][0], l[0][1]), l[1][1]))\
     .reduceByKey(func=lambda a, b: a + b)
 
 # (sector, year ), close_max_date)
 # (sector, year ), sum_close_max_date)
-sector_year_datemax_sum_close_RDD = sector_year_ticker_datemax_close_RDD.map(f=lambda l: ((l[0][0], l[0][1]), l[1][1])) \
+sector_year_datemax_sum_close_RDD = sector_year_ticker_datemax_close_RDD.map(f=lambda l: ((l[0][0], l[0][1]), l[1][1]))\
     .reduceByKey(func=lambda a, b: a + b)
 
 
@@ -141,7 +140,7 @@ def var_percent_ticker(el):
 
 # ((sector, year , ticker), (date_min,close),(date_max,close))
 # (sector, year , ticker), percetage_variation)
-sector_year_ticker_var_percent_RDD =  sector_year_datemin_sum_close_RDD.join(sector_year_datemax_sum_close_RDD) \
+sector_year_ticker_var_percent_RDD = sector_year_datemin_sum_close_RDD.join(sector_year_datemax_sum_close_RDD) \
     .mapValues(f=var_percent_ticker)
 
 
@@ -180,7 +179,7 @@ def pretty_print(elem):
 # (sector,year),(ticker,max_var_percent),var_percent_sector)
 # (sector,year),(ticker,max_var_percent,var_percent_sector))
 # (sector,year),((ticker,max_var_percent,var_percent_sector),(ticker,max_volume))
-##(sector,year),(ticker,max_var_percent,var_percent_sector, ticker,max_volume)
+# (sector,year),(ticker,max_var_percent,var_percent_sector, ticker,max_volume)
 final_join_RDD = sector_year_ticker_max_var_percent_RDD.join(sector_year_var_percent_RDD) \
     .mapValues(f=lambda l: (l[0][0], l[0][1], l[1])) \
     .join(sector_year_ticker_volume_sumMAX_RDD) \
