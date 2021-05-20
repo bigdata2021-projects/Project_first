@@ -33,12 +33,13 @@ lines_RDD_1 = spark.sparkContext.textFile(input_filepath1)
 
 lines_RDD_2 = spark.sparkContext.textFile(input_filepath2)
 
-stock_prices_RDD = lines_RDD_1.map(f=lambda line: line.strip().split(",")) \
+stock_prices_RDD = lines_RDD_1.map(f=lambda line: line.strip().split(",")).filter(lambda line: line[0] != "ticker") \
     .filter(f=lambda l: 2009 <= datetime.strptime(l[7], '%Y-%m-%d').year <= 2018) \
     .map(f=lambda pair: (pair[0], pair))
 
 # (ticker ,(name,sector))
 stock_RDD = lines_RDD_2.map(f=lambda line: line.strip().split(",")) \
+    .filter(f=lambda line: line[3] != "N/A") \
     .map(f=lambda pair: (pair[0], (pair[2], pair[3])))
 
 
@@ -57,6 +58,8 @@ def build_RDD(el):
 # (ticker , ((tuplaDa7Elementi) , (name,sector))
 # (ticker, name ,year, date, sector , close_act, volume)
 stock_join = stock_prices_RDD.join(stock_RDD).map(f=build_RDD)
+
+
 
 # PUNTO C
 # (sector, year , ticker), volume)
@@ -107,12 +110,12 @@ sector_year_ticker_datemax_close_RDD = sector_year_ticker_date_close_RDD.reduceB
 # (sector, year , ticker), (date_min,close) -->>
 # (sector, year ), close_min_date) -->>
 # (sector, year ), sum_close_min_date)
-sector_year_datemin_sum_close_RDD = sector_year_ticker_datemin_close_RDD.map(f=lambda l: ((l[0][0], l[0][1]), l[1][1]))\
+sector_year_datemin_sum_close_RDD = sector_year_ticker_datemin_close_RDD.map(f=lambda l: ((l[0][0], l[0][1]), l[1][1])) \
     .reduceByKey(func=lambda a, b: a + b)
 
 # (sector, year ), close_max_date)
 # (sector, year ), sum_close_max_date)
-sector_year_datemax_sum_close_RDD = sector_year_ticker_datemax_close_RDD.map(f=lambda l: ((l[0][0], l[0][1]), l[1][1]))\
+sector_year_datemax_sum_close_RDD = sector_year_ticker_datemax_close_RDD.map(f=lambda l: ((l[0][0], l[0][1]), l[1][1])) \
     .reduceByKey(func=lambda a, b: a + b)
 
 
@@ -140,16 +143,16 @@ def var_percent_ticker(el):
 
 # ((sector, year , ticker), (date_min,close),(date_max,close))
 # (sector, year , ticker), percetage_variation)
-sector_year_ticker_var_percent_RDD = sector_year_datemin_sum_close_RDD.join(sector_year_datemax_sum_close_RDD) \
+sector_year_ticker_var_percent_RDD =  sector_year_ticker_datemin_close_RDD.join(sector_year_ticker_datemax_close_RDD) \
     .mapValues(f=var_percent_ticker)
 
 
 def max_var_percent(el1, el2):
-    pv1 = el1[0]
-    pv2 = el2[0]
+    pv1 = el1[1]
+    pv2 = el2[1]
     if pv1 > pv2:
-        return pv1
-    return pv2
+        return el1
+    return el2
 
 
 # (sector,year,ticker), max_var_percent)
@@ -157,6 +160,7 @@ def max_var_percent(el1, el2):
 sector_year_ticker_max_var_percent_RDD = sector_year_ticker_var_percent_RDD.map(
     f=lambda l: ((l[0][0], l[0][1]), (l[0][2], l[1]))) \
     .reduceByKey(func=max_var_percent)
+
 
 
 def pretty_print(elem):
@@ -176,14 +180,15 @@ def pretty_print(elem):
     return output
 
 
+
 # (sector,year),(ticker,max_var_percent),var_percent_sector)
 # (sector,year),(ticker,max_var_percent,var_percent_sector))
 # (sector,year),((ticker,max_var_percent,var_percent_sector),(ticker,max_volume))
-# (sector,year),(ticker,max_var_percent,var_percent_sector, ticker,max_volume)
+#(sector,year),(ticker,max_var_percent,var_percent_sector, ticker,max_volume)
 final_join_RDD = sector_year_ticker_max_var_percent_RDD.join(sector_year_var_percent_RDD) \
     .mapValues(f=lambda l: (l[0][0], l[0][1], l[1])) \
     .join(sector_year_ticker_volume_sumMAX_RDD) \
-    .mapValues(f=lambda l: (l[0][0], l[0][1], l[1][0][2], l[1][0][0], l[1][0][1], l[1][1][0], l[1][1][1])) \
+    .map(f=lambda l: (l[0][0], l[0][1], l[1][0][2], l[1][0][0], l[1][0][1], l[1][1][0], l[1][1][1])) \
     .sortBy(keyfunc=lambda element: element[0]) \
     .map(f=pretty_print)
 
