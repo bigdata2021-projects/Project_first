@@ -36,6 +36,7 @@ lines_RDD_2 = spark.sparkContext.textFile(input_filepath2)
 
 stock_prices_RDD = lines_RDD_1.map(f=lambda line: line.strip().split(",")) \
     .filter(f=lambda l: datetime.strptime(l[7], '%Y-%m-%d').year == 2017) \
+    .filter(lambda line: line[0] != "ticker") \
     .map(f=lambda pair: (pair[0], pair))
 
 stock_RDD = lines_RDD_2.map(f=lambda line: line.strip().split(",")) \
