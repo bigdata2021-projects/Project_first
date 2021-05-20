@@ -12,14 +12,16 @@ DROP TABLE IF EXISTS output_job3;
 
 CREATE TABLE historical_stock_prices_3Job (ticker_id STRING, open_act FLOAT, close_act FLOAT, adj_close FLOAT, lowThe FLOAT,highThe FLOAT,volume FLOAT,date_act DATE) 
 	ROW FORMAT DELIMITED
-	FIELDS TERMINATED BY ',';
+	FIELDS TERMINATED BY ','
+        TBLPROPERTIES("skip.header.line.count"="1");
 
 LOAD DATA LOCAL INPATH '/home/piervy/Scrivania/historical_stock_prices_10000.csv'
                                       OVERWRITE INTO TABLE historical_stock_prices_3Job;
 
 CREATE TABLE historical_stock_3Job (ticker_id STRING, exchange1 STRING, name STRING, sector STRING,industry STRING) 
 	ROW FORMAT DELIMITED
-	FIELDS TERMINATED BY ',';
+	FIELDS TERMINATED BY ','
+        TBLPROPERTIES("skip.header.line.count"="1");
 
 LOAD DATA LOCAL INPATH '/home/piervy/Scrivania/historical_stocks.csv'
                                       OVERWRITE INTO TABLE historical_stock_3Job;
@@ -55,7 +57,7 @@ SELECT * FROM maxdate_action;
 
 /* Create TABLE with date min and close for any action*/
 CREATE TABLE first_close_action_2017 AS
-             SELECT t2.ticker_id, t2.first_date , t1.close_act
+             SELECT t2.ticker_id, t2.first_date , t1.close_act, t1.name
              FROM historical_stock_join_2017 AS t1,
                   mindate_action AS t2
              WHERE t1.ticker_id = t2.ticker_id AND t1.date_act = t2.first_date;
@@ -76,6 +78,7 @@ SELECT * FROM last_close_action_2017;
 CREATE TABLE var_percent_for_ticker AS
              SELECT t2.ticker_id AS ticker_id,
                     month(t2.first_date) AS first_date,
+                    t2.name,
                     ((t3.close_act-t2.close_act)/t2.close_act)*100 AS var_percent
              FROM first_close_action_2017 AS t2,
                   last_close_action_2017 AS t3
@@ -89,25 +92,31 @@ SELECT * FROM var_percent_for_ticker;
 CREATE TABLE var_percent_action_with_treshold AS
              SELECT t2.ticker_id AS ticker_id,
                     t1.ticker_id AS ticker_id2,
+                    t1.name AS name1,
+                    t2.name AS name2,
                     t2.first_date AS first_date,
                     t1.var_percent AS var_percent1,
                     t2.var_percent AS var_percent2,
                     ABS(t1.var_percent - t2.var_percent) AS var_percent_diff
              FROM var_percent_for_ticker AS t1,
-                  var_percent_for_ticker AS t2
+                  var_percent_for_ticker AS t2  
              WHERE t1.ticker_id <> t2.ticker_id
                AND t2.first_date = t1.first_date;
+
 
 SELECT * FROM var_percent_action_with_treshold;
 
 CREATE TABLE output_job3 AS
-             SELECT t1.first_date,
+             SELECT t1.first_date AS month_date,
                     t1.ticker_id,
+                    t1.name1,
                     t1.var_percent1,
                     t1.ticker_id2,
+                    t1.name2,
                     t1.var_percent2
              FROM var_percent_action_with_treshold AS t1
-             WHERE t1.var_percent_diff <=1;
+             WHERE t1.var_percent_diff <=1
+             ORDER BY month_date;
 
 
 SELECT * FROM output_job3;
