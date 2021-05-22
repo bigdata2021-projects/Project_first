@@ -15,10 +15,9 @@ for line in sys.stdin:
     else:
         name_dictionary[ticker] = name
 
-for ticker_key in name_dictionary.keys():
-    for ticker1_key, data_key in close_dictionary.keys():
-        if ticker_key == ticker1_key:
-            action_dictionary[ticker_key, data_key] = [close_dictionary[ticker1_key, data_key],
+for ticker_key, data_key in close_dictionary.keys():
+    if ticker_key in name_dictionary.keys():
+        action_dictionary[ticker_key, data_key] = [close_dictionary[ticker_key, data_key],
                                                        name_dictionary[ticker_key]]
 
 for ticker, data in action_dictionary.keys():

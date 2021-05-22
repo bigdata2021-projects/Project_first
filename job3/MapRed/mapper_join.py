@@ -2,8 +2,8 @@
 import datetime
 import sys
 
-date_min = datetime.datetime.strptime('2009-01-01', '%Y-%m-%d')
-date_max = datetime.datetime.strptime('2018-12-31', '%Y-%m-%d')
+date_min = datetime.datetime.strptime('2017-01-01', '%Y-%m-%d')
+date_max = datetime.datetime.strptime('2017-12-31', '%Y-%m-%d')
 for line in sys.stdin:
     line = line.strip()
     line1 = line.split(",")
@@ -23,7 +23,7 @@ for line in sys.stdin:
             date_string = line1[7]
             volume = int(line1[6])
             print("%s,%f,%s,%s,%i" % (ticker, close_act, name, date_string, temp))
-    elif line1[3] != "N/A":
+    else:
         ticker = line1[0]
         name = line1[2]
         temp = 1
