@@ -71,20 +71,18 @@ for sector_key, ticker_key, year_key in sector_maxdate_dictionary.keys():
 
 # POINT A: Calcolo variazione quotazione
 for sector_key, year in quotation_max_dictionary.keys():
-    for sector_1key, year1 in quotation_min_dictionary.keys():
-        if sector_key == sector_1key and year == year1:
-            q_min = quotation_min_dictionary[sector_key, year]
-            q_max = quotation_max_dictionary[sector_1key, year1]
-            variation_dictionary[sector_key, year] = ((q_max - q_min) / q_min) * 100
+    if (sector_key, year) in quotation_min_dictionary.keys():
+        q_min = quotation_min_dictionary[sector_key, year]
+        q_max = quotation_max_dictionary[sector_key, year]
+        variation_dictionary[sector_key, year] = ((q_max - q_min) / q_min) * 100
 # POINT B
 for sector_key, ticker_key, year_key in sector_mindate_dictionary.keys():
-    for sector1_key, ticker1_key, year1_key in sector_maxdate_dictionary.keys():
-        if ticker_key == ticker1_key and year_key == year1_key:
-            close_min = sector_mindate_dictionary[sector_key, ticker_key, year_key][1]
-            close_max = sector_maxdate_dictionary[sector1_key, ticker1_key, year1_key][1]
-            sector_tickervar_dictionary[sector_key,
-                                        ticker_key, year_key] = ((float(close_max)
-                                                                  - float(close_min)) / float(close_min)) * 100
+    if (sector_key, ticker_key, year_key) in sector_maxdate_dictionary.keys():
+        close_min = sector_mindate_dictionary[sector_key, ticker_key, year_key][1]
+        close_max = sector_maxdate_dictionary[sector_key, ticker_key, year_key][1]
+        sector_tickervar_dictionary[sector_key,
+                                    ticker_key, year_key] = ((float(close_max)
+                                                              - float(close_min)) / float(close_min)) * 100
 # POINT B
 for sector_key, ticker_key, year_key in sector_tickervar_dictionary.keys():
     variation = float(sector_tickervar_dictionary[sector_key, ticker_key, year_key])
@@ -93,29 +91,15 @@ for sector_key, ticker_key, year_key in sector_tickervar_dictionary.keys():
         # var_temp_dictionary[year_key] = variation
     elif sector_tickervarmax_dictionary[sector_key, year_key][1] <= variation:
         sector_tickervarmax_dictionary[sector_key, year_key] = [ticker_key, variation]
-# Point C in FOR
+# Point C
 for (sector, ticker, year) in sector_sumvolume_dictionary.keys():
     if (sector, year) not in sector_maxvolume_dictionary.keys():
         sector_maxvolume_dictionary[sector, year] = [sector_sumvolume_dictionary[sector, ticker, year], ticker]
     elif sector_sumvolume_dictionary[sector, ticker, year] >= sector_maxvolume_dictionary[sector, year][0]:
         sector_maxvolume_dictionary[sector, year] = [sector_sumvolume_dictionary[sector, ticker, year], ticker]
-"""
-# return  POINT A
-for key1, key2 in variation_dictionary.keys():
-    print(key1 + ", " + str(key2) + ", " + str(variation_dictionary[key1, key2]))
 
-# return POINT C
-for key1, key2 in sector_maxvolume_dictionary.keys():
-    print(key1 + ", " + str(key2) + ", "
-          + str(sector_maxvolume_dictionary[key1, key2][0]) + ", "
-          + str(sector_maxvolume_dictionary[key1, key2][1]))
-# return POINT B
-for key1, key2 in sector_tickervarmax_dictionary.keys():
-    print(key1 + ", " + str(key2) + ", "
-          + str(sector_tickervarmax_dictionary[key1, key2][0]) + ", "
-          + str(sector_tickervarmax_dictionary[key1, key2][1]))
-"""
-for (key1, key2), value in sorted(sector_maxvolume_dictionary.items()):
+# pretty print
+for (key1, key2), value in sorted(sector_maxvolume_dictionary.items(), key=lambda value: value[0][1]):
     print("###########################################################\n")
     print("settore: " + key1 +
           " anno: " + str(key2) + "\n")

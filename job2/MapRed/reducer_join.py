@@ -15,11 +15,11 @@ for line in sys.stdin:
     else:
         sector_dictionary[ticker] = sector
 
-for ticker_key in sector_dictionary.keys():
-    for ticker1_key, data_key in close_dictionary.keys():
-        if ticker_key == ticker1_key:
-            action_dictionary[ticker_key, data_key] = close_dictionary[ticker1_key, data_key] + [
-                sector_dictionary[ticker_key]]
+
+for ticker1_key, data_key in close_dictionary.keys():
+    if ticker1_key in sector_dictionary.keys():
+        action_dictionary[ticker1_key, data_key] = close_dictionary[ticker1_key, data_key] + [
+            sector_dictionary[ticker1_key]]
 
 for ticker, data in action_dictionary.keys():
     print(ticker + "," + data + "," + str(action_dictionary[ticker, data][0]) +
