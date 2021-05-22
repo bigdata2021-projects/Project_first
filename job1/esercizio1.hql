@@ -11,9 +11,10 @@ DROP TABLE IF EXISTS output;
 
 CREATE TABLE action_temp6 (ticker_id STRING, open_act FLOAT, close_act FLOAT, adj_close FLOAT, lowThe FLOAT,highThe FLOAT,volume FLOAT,date_act DATE) 
     ROW FORMAT DELIMITED
-    FIELDS TERMINATED BY ',';
+    FIELDS TERMINATED BY ','
+    TBLPROPERTIES("skip.header.line.count"="1");
 
-LOAD DATA LOCAL INPATH '/home/francesco/Desktop/Progetto1/dataset/historical_stock_prices_10000000.csv'
+LOAD DATA LOCAL INPATH '/insert/your/path/file.csv'
                                       OVERWRITE INTO TABLE action_temp6;
 
 CREATE TABLE max_date_action AS
