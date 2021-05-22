@@ -174,9 +174,9 @@ def pretty_print(elem):
     max_volume = str(elem[6])
     output = output + "Sector: " + sector + ", "
     output = output + "Year: " + year + ", "
-    output = output + "Sector Percentage Variation: " + sector_percentage_variation + ", "
-    output = output + "Ticker Max Percentage Variation: " + ticker_max_pv + " " + "Percentage Variation:" + max_pv + ", "
-    output = output + "Ticker Max Transaction Volume: " + ticker_max_volume + " " + "Volume:" + max_volume
+    output = output + "Variazione Percentuale Settore: " + sector_percentage_variation + ", "
+    output = output + "Ticker Massima Variazione Percentuale: " + ticker_max_pv + " " + "Variazione Percentuale:" + max_pv + ", "
+    output = output + "Ticker Massimo Volume: " + ticker_max_volume + " " + "Volume:" + max_volume
     return output
 
 
