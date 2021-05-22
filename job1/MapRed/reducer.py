@@ -2,7 +2,13 @@
 import datetime
 import sys
 
-action_dictionary = {}
+action_dic={}
+date_min_dic={}
+date_max_dic={}
+highThe_dic={}
+lowthe_dic={}
+output_dic = {}
+
 
 for line in sys.stdin:
     line = line.strip()
@@ -16,37 +22,60 @@ for line in sys.stdin:
     highThe = float(highThe_str)
     volume = float(volume_str)
 
-    if ticker not in action_dictionary:
 
-        var_perc = ((close - close) / close) * 100
-        action_dictionary[ticker] = [dateNew, dateNew, var_perc, close, close, highThe, lowThe]
+    if ticker not in date_min_dic.keys():
+        date_min_dic[ticker] = [dateNew,close]
+    elif dateNew < date_min_dic[ticker][0]:
+            date_min_dic[ticker]= [dateNew,close]
 
-    else:
-        feature = action_dictionary[ticker]
-        if dateNew < feature[0]:
-            feature[0] = dateNew
-            feature[2] = ((feature[4] - close) / close) * 100
-            feature[3] = close
-            action_dictionary[ticker] = feature
-        if dateNew > feature[1]:
-            feature[1] = dateNew
-            feature[2] = ((close - feature[3]) / feature[3]) * 100
-            feature[4] = close
-            action_dictionary[ticker] = feature
-        if highThe > feature[5]:
-            feature[5] = highThe
-        if lowThe < feature[6]:
-            feature[6] = lowThe
+    if ticker not in date_max_dic.keys():
+        date_max_dic[ticker]=[dateNew,close]
+    elif dateNew > date_max_dic[ticker][0]:
+        date_max_dic[ticker]= [dateNew,close]
 
-for ticker, values in sorted(action_dictionary.items(), key=lambda key: key[1], reverse=True):
-    action_dictionary[ticker][0] = action_dictionary[ticker][0].strftime('%Y-%m-%d')
-    action_dictionary[ticker][1] = action_dictionary[ticker][1].strftime('%Y-%m-%d')
+    if ticker not in highThe_dic.keys():
+        highThe_dic[ticker] = highThe
+    elif highThe > highThe_dic[ticker]:
+         highThe_dic[ticker] = highThe
+
+    if ticker not in lowthe_dic.keys():
+        lowthe_dic[ticker] = lowThe
+    elif lowThe < lowthe_dic[ticker]:
+         lowthe_dic[ticker] = lowThe
+
+
+for ticker in date_min_dic.keys():
+     if ticker in date_max_dic.keys():
+         close_min = date_min_dic[ticker][1]
+         close_max = date_max_dic[ticker][1]
+         date_min = date_min_dic[ticker][0]
+         date_max = date_max_dic[ticker][0]
+         var_max = ((close_max - close_min)/close_min)*100
+     if ticker not in output_dic.keys():
+         output_dic[ticker] = [date_min] + [date_max] + [var_max]
+     else:
+         continue
+     if ticker in highThe_dic.keys():
+        output_dic[ticker] = output_dic[ticker] + [highThe_dic[ticker]]
+     if ticker in lowthe_dic.keys():
+        output_dic[ticker] = output_dic[ticker] + [lowthe_dic[ticker]]
+
+
+for ticker, value in sorted(output_dic.items(), key=lambda value: value[1][1], reverse=True):
+    output_dic[ticker][0] = output_dic[ticker][0].strftime('%Y-%m-%d')
+    output_dic[ticker][1] = output_dic[ticker][1].strftime('%Y-%m-%d')
     print("#######################################")
     print(ticker)
     print("#######################################")
-    print("Data prima quotazione: " + str(action_dictionary[ticker][0])
-          + "\n" + "Data ultima quotazione: " + str(action_dictionary[ticker][1])
-          + "\n" + "Variazione percentuale: " + str(action_dictionary[ticker][2])
-          + "\n" + "Prezzo massimo: " + str(action_dictionary[ticker][5])
-          + "\n" + "Prezzo minimo: " + str(action_dictionary[ticker][6])
+    print("Data prima quotazione: " + str(output_dic[ticker][0])
+          + "\n" + "Data ultima quotazione: " + str(output_dic[ticker][1])
+          + "\n" + "Variazione percentuale: " + str(output_dic[ticker][2])
+          + "\n" + "Prezzo massimo: " + str(output_dic[ticker][3])
+          + "\n" + "Prezzo minimo: " + str(output_dic[ticker][4])
           )
+
+
+
+
+
+
