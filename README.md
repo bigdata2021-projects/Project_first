@@ -1,6 +1,6 @@
 # Project: First Big Data Project - April 22, 2021
 
-Analyzing the market shares on the New York Stock Exchange (NYSE) and on the NASDAQ from 1970 to 2018 (Big Data Course 2020/2021, Roma Tre University, Department of Engineering)
+Analyzing the market actions on the New York Stock Exchange (NYSE) and on the NASDAQ from 1970 to 2018 (Big Data Course 2020/2021, Roma Tre University, Department of Engineering)
 
 
 Requirements
