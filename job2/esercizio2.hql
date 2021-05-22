@@ -21,7 +21,7 @@ CREATE TABLE historical_stock_prices (ticker_id STRING, open_act FLOAT, close_ac
 	FIELDS TERMINATED BY ','
 	TBLPROPERTIES("skip.header.line.count"="1");
 
-LOAD DATA LOCAL INPATH '/home/francesco/Desktop/Progetto1/dataset/historical_stock_prices_10000.csv'
+LOAD DATA LOCAL INPATH '/insert/your/path/file.csv'
                                       OVERWRITE INTO TABLE historical_stock_prices;
 
 CREATE TABLE historical_stock (ticker_id STRING, exchange1 STRING, name STRING, sector STRING,industry STRING) 
@@ -29,7 +29,7 @@ CREATE TABLE historical_stock (ticker_id STRING, exchange1 STRING, name STRING, 
 	FIELDS TERMINATED BY ','
 	TBLPROPERTIES("skip.header.line.count"="1");
 
-LOAD DATA LOCAL INPATH '/home/francesco/Desktop/Progetto1/dataset/historical_stocks.csv'
+LOAD DATA LOCAL INPATH '/insert/your/path/file.csv'
                                       OVERWRITE INTO TABLE historical_stock;
 /* JOIN BETWEEN TABLE */
 CREATE TABLE historical_stock_join AS 
@@ -48,16 +48,12 @@ CREATE TABLE min_date_action AS
        SELECT ticker_id, sector, year(date_act),MIN(date_act) AS first_date
        FROM historical_stock_join
        GROUP BY ticker_id, sector,year(date_act);
-
-SELECT * FROM min_date_action; 
-
+ 
 
 CREATE TABLE max_date_action AS
        SELECT ticker_id, sector, year(date_act),MAX(date_act) AS last_date
        FROM historical_stock_join
        GROUP BY ticker_id, sector,year(date_act);
-
-SELECT * FROM max_date_action;
 
 
 CREATE TABLE max_dateAndclose_for_sector_and_year AS 
@@ -70,7 +66,6 @@ CREATE TABLE max_dateAndclose_for_sector_and_year AS
              AND historical_stock_join.sector = max_date_action.sector
              AND historical_stock_join.date_act = max_date_action.last_date;
 
-SELECT * FROM max_dateAndclose_for_sector_and_year;
 
 CREATE TABLE min_dateAndclose_for_sector_and_year AS 
              SELECT historical_stock_join.sector AS sector,
@@ -82,7 +77,6 @@ CREATE TABLE min_dateAndclose_for_sector_and_year AS
              AND historical_stock_join.sector = min_date_action.sector
              AND historical_stock_join.date_act= min_date_action.first_date;
 
-SELECT * FROM  min_dateAndclose_for_sector_and_year;
 
 
 CREATE TABLE sum_min_sector AS  
@@ -102,14 +96,12 @@ CREATE TABLE sum_max_sector AS
 CREATE TABLE action_first_close_for_year_and_sector AS
              SELECT sector, year(first_date) AS first_date, ticker_id, close_act AS first_close
              FROM min_dateAndclose_for_sector_and_year;
-
-SELECT * FROM action_first_close_for_year_and_sector;           
+           
 
 CREATE TABLE action_last_close_for_year_and_sector AS
              SELECT sector, year(last_date) AS last_date, ticker_id, close_act AS last_close
              FROM max_dateAndclose_for_sector_and_year;
 
-SELECT * FROM action_last_close_for_year_and_sector;
 
 CREATE TABLE var_percent_act_for_year_and_sector AS
               SELECT t1.sector,
@@ -121,7 +113,6 @@ CREATE TABLE var_percent_act_for_year_and_sector AS
               AND t1.ticker_id = t2.ticker_id 
               AND t1.first_date = t2.last_date;
 
-SELECT * FROM var_percent_act_for_year_and_sector;
 
 CREATE TABLE max_var_percent_act_for_year_and_sector AS
              SELECT t1.sector AS sector,
@@ -138,7 +129,6 @@ CREATE TABLE max_var_percent_act_for_year_and_sector AS
              AND t1.act_var_percent = t2.max_var_percent;
             
 
-SELECT * FROM max_var_percent_act_for_year_and_sector;
 
 /* JOB C */
 
@@ -148,7 +138,6 @@ CREATE TABLE sum_volume AS
              FROM historical_stock_join
              GROUP BY sector,year(date_act), ticker_id;
 
-SELECT * FROM sum_volume;
 
 CREATE TABLE max_volume_sector_year AS
              SELECT t1.sector AS sector, 
@@ -185,10 +174,25 @@ CREATE TABLE final_sector_historical_stocks AS
               AND   t3.year_sum = t4.date_act
               ORDER BY sector;
 
-SELECT * FROM final_sector_historical_stocks;
+SELECT * FROM final_sector_historical_stocks
+LIMIT 10;
 
 
 
-
-
+DROP TABLE IF EXISTS historical_stock;
+DROP TABLE IF EXISTS historical_stock_prices;
+DROP TABLE IF EXISTS historical_stock_join;
+DROP TABLE IF EXISTS min_date_action;
+DROP TABLE IF EXISTS max_date_action;
+DROP TABLE IF EXISTS max_dateAndclose_for_sector_and_year;
+DROP TABLE IF EXISTS min_dateAndclose_for_sector_and_year;
+DROP TABLE IF EXISTS sum_min_sector;
+DROP TABLE IF EXISTS sum_max_sector;
+DROP TABLE IF EXISTS action_first_close_for_year_and_sector;
+DROP TABLE IF EXISTS action_last_close_for_year_and_sector;
+DROP TABLE IF EXISTS var_percent_act_for_year_and_sector;
+DROP TABLE IF EXISTS max_var_percent_act_for_year_and_sector;
+DROP TABLE IF EXISTS sum_volume;
+DROP TABLE IF EXISTS max_volume_sector_year;
+DROP TABLE IF EXISTS final_sector_historical_stocks;
 
