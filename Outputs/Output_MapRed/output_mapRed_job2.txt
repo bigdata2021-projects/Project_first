@@ -1,0 +1,158 @@
+###########################################################
+
+settore: BASIC INDUSTRIES  anno: 2009
+
+###########################################################
+
+a)variazione quotazione settore: 
+-3.48
+
+b)azione del settore con variazione massima: 
+GURE, 709.72
+
+c)azione del settore con volumi massimi: 
+FCX,9141685400
+
+###########################################################
+
+settore: BASIC INDUSTRIES  anno: 2010
+
+###########################################################
+
+a)variazione quotazione settore: 
+-21.79
+
+b)azione del settore con variazione massima: 
+BLD, 519.8
+
+c)azione del settore con volumi massimi: 
+FCX,6891808600
+
+###########################################################
+
+settore: BASIC INDUSTRIES  anno: 2011
+
+###########################################################
+
+a)variazione quotazione settore: 
+-58.6
+
+b)azione del settore con variazione massima: 
+ROAD, 188.7
+
+c)azione del settore con volumi massimi: 
+FCX,5150807800
+
+###########################################################
+
+settore: BASIC INDUSTRIES  anno: 2012
+
+###########################################################
+
+a)variazione quotazione settore: 
+-68.79
+
+b)azione del settore con variazione massima: 
+PATK, 261.86
+
+c)azione del settore con volumi massimi: 
+VALE,4659766700
+
+###########################################################
+
+settore: BASIC INDUSTRIES  anno: 2013
+
+###########################################################
+
+a)variazione quotazione settore: 
+-10.32
+
+b)azione del settore con variazione massima: 
+XRM, 416.93
+
+c)azione del settore con volumi massimi: 
+VALE,4428233700
+
+###########################################################
+
+settore: BASIC INDUSTRIES  anno: 2014
+
+###########################################################
+
+a)variazione quotazione settore: 
+-71.9
+
+b)azione del settore con variazione massima: 
+BLD, 884.6
+
+c)azione del settore con volumi massimi: 
+VALE,5660183200
+
+###########################################################
+
+settore: BASIC INDUSTRIES  anno: 2015
+
+###########################################################
+
+a)variazione quotazione settore: 
+-48.1
+
+b)azione del settore con variazione massima: 
+SUM, 35191.63
+
+c)azione del settore con volumi massimi: 
+FCX,7286761300
+
+###########################################################
+
+settore: BASIC INDUSTRIES  anno: 2016
+
+###########################################################
+
+a)variazione quotazione settore: 
+13.83
+
+b)azione del settore con variazione massima: 
+TECK, 451.79
+
+c)azione del settore con volumi massimi: 
+FCX,10464699500
+
+###########################################################
+
+settore: BASIC INDUSTRIES  anno: 2017
+
+###########################################################
+
+a)variazione quotazione settore: 
+15.28
+
+b)azione del settore con variazione massima: 
+OPNT, 310.18
+
+c)azione del settore con volumi massimi: 
+VALE,7023267600
+
+###########################################################
+
+settore: BASIC INDUSTRIES  anno: 2018
+
+###########################################################
+
+a)variazione quotazione settore: 
+-3.08
+
+b)azione del settore con variazione massima: 
+XRM, 213.82
+
+c)azione del settore con volumi massimi: 
+VALE,3710091900
+
+
+
+
+
+
+
+
+

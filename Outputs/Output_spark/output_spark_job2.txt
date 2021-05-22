@@ -1,0 +1,10 @@
+Sector: BASIC INDUSTRIES, Year: 2018, Variazione Percentuale Settore: -3.08%, Ticker Massima Variazione Percentuale: XRM Variazione Percentuale: 213.82%, Ticker Massimo Volume: VALE Volume: 3710091900;
+Sector: BASIC INDUSTRIES, Year: 2015, Variazione Percentuale Settore: -48.1%, Ticker Massima Variazione Percentuale: SUM Variazione Percentuale: 35191.63%, Ticker Massimo Volume: FCX Volume: 7286761300;
+Sector: BASIC INDUSTRIES, Year: 2011, Variazione Percentuale Settore: -58.6%, Ticker Massima Variazione Percentuale: ROAD Variazione Percentuale: 188.7%, Ticker Massimo Volume: FCX Volume: 5150807800;
+Sector: BASIC INDUSTRIES, Year: 2013, Variazione Percentuale Settore: 10.32%, Ticker Massima Variazione Percentuale: XRM Variazione Percentuale: 416.93%, Ticker Massimo Volume: VALE Volume: 4428233700;
+Sector: BASIC INDUSTRIES, Year: 2009, Variazione Percentuale Settore: 3.48%, Ticker Massima Variazione Percentuale: GURE Variazione Percentuale: 709.72%, Ticker Massimo Volume: FCX Volume: 9141685400;
+Sector: BASIC INDUSTRIES, Year: 2017, Variazione Percentuale Settore: 15.28%, Ticker Massima Variazione Percentuale: OPNT Variazione Percentuale: 310.18%, Ticker Massimo Volume: VALE Volume: 7023267600;
+Sector: BASIC INDUSTRIES, Year: 2012, Variazione Percentuale Settore: -68.79%, Ticker Massima Variazione Percentuale: PATK Variazione Percentuale: 261.86%, Ticker Massimo Volume: VALE Volume: 4659766700;
+Sector: BASIC INDUSTRIES, Year: 2014, Variazione Percentuale Settore: -71.9%, Ticker Massima Variazione Percentuale: BLD Variazione Percentuale: 884.6%, Ticker Massimo Volume: VALE Volume: 5660183200;
+Sector: BASIC INDUSTRIES, Year: 2010, Variazione Percentuale Settore: 21.79%, Ticker Massima Variazione Percentuale: BLD Variazione Percentuale: 519.8%, Ticker Massimo Volume: FCX Volume: 6891808600;
+Sector: BASIC INDUSTRIES, Year: 2016, Variazione Percentuale Settore: 13.83%, Ticker Massima Variazione Percentuale: TECK Variazione Percentuale: 451.79%, Ticker Massimo Volume: FCX Volume: 10464699500;

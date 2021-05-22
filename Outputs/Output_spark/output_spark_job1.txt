@@ -1,0 +1,80 @@
+####################
+GHDX
+####################
+data minima: 2005-09-29
+data massima: 2018-08-24
+variazione percentuale: 390.89361961851745
+prezzo minimo :8.5600004196167
+prezzo massimo :59.4900016784668
+####################
+RMNI
+####################
+data minima: 2015-08-28
+data massima: 2018-08-24
+variazione percentuale: -47.48718066093251
+prezzo minimo :4
+prezzo massimo :10.3999996185303
+####################
+MRNS
+####################
+data minima: 2007-12-27
+data massima: 2018-08-24
+variazione percentuale: 12922.003351423084
+prezzo minimo :0.0415700003504753
+prezzo massimo :123.199996948242
+####################
+CACC
+####################
+data minima: 1992-06-05
+data massima: 2018-08-24
+variazione percentuale: 16514.647047032508
+prezzo minimo :2.33333325386047
+prezzo massimo :467.260009765625
+####################
+GUT
+####################
+data minima: 1999-07-12
+data massima: 2018-08-24
+variazione percentuale: -31.32846581674838
+prezzo minimo :3.95000004768372
+prezzo massimo :10.5
+####################
+EMITF
+####################
+data minima: 1996-11-27
+data massima: 2018-08-24
+variazione percentuale: -99.15925926632352
+prezzo minimo :1.83000183105469
+prezzo massimo :3519.60009765625
+####################
+AFST
+####################
+data minima: 2015-09-23
+data massima: 2018-08-24
+variazione percentuale: -0.27921697517472527
+prezzo minimo :22.4599990844727
+prezzo massimo :28.75
+####################
+DFRG
+####################
+data minima: 2012-07-27
+data massima: 2018-08-24
+variazione percentuale: -25.384616851806612
+prezzo minimo :8.05000019073486
+prezzo massimo :29.6100006103516
+####################
+MAMS
+####################
+data minima: 1997-07-02
+data massima: 2018-08-24
+variazione percentuale: -99.87851852134422
+prezzo minimo :0.270000010728836
+prezzo massimo :13500
+####################
+IVAC
+####################
+data minima: 1995-11-21
+data massima: 2018-08-24
+variazione percentuale: -9.919998168945284
+prezzo minimo :1.85000002384186
+prezzo massimo :30.8999996185303

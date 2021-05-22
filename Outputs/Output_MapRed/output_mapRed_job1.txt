@@ -1,0 +1,80 @@
+#######################################    
+AAON    
+#######################################    
+Data prima quotazione: 1992-12-17    
+Data ultima quotazione: 2018-08-24    
+Variazione percentuale: 34440.17047335046    
+Prezzo massimo: 42.25    
+Prezzo minimo: 0.0997630655765533    
+#######################################    
+AAWW    
+#######################################    
+Data prima quotazione: 2005-11-10    
+Data ultima quotazione: 2018-08-24    
+Variazione percentuale: 100.16128786148548    
+Prezzo massimo: 75.2900009155273    
+Prezzo minimo: 8.98999977111816    
+#######################################    
+AAXJ    
+#######################################    
+Data prima quotazione: 2008-08-15    
+Data ultima quotazione: 2018-08-24    
+Variazione percentuale: 42.58927156177122    
+Prezzo massimo: 83.5199966430664    
+Prezzo minimo: 22.0    
+#######################################    
+ABCB    
+#######################################    
+Data prima quotazione: 1994-05-24    
+Data ultima quotazione: 2018-08-24    
+Variazione percentuale: 884.041407234519    
+Prezzo massimo: 58.0    
+Prezzo minimo: 3.35561490058899    
+#######################################    
+ABIL    
+#######################################    
+Data prima quotazione: 2014-02-05    
+Data ultima quotazione: 2018-08-24    
+Variazione percentuale: -63.29999923706049    
+Prezzo massimo: 14.5500001907349    
+Prezzo minimo: 0.323000013828278    
+#######################################    
+ABM    
+#######################################    
+Data prima quotazione: 1980-03-20    
+Data ultima quotazione: 2018-08-24    
+Variazione percentuale: 3167.8571289443253    
+Prezzo massimo: 45.0299987792969    
+Prezzo minimo: 0.866666674613953    
+#######################################    
+ABMD    
+#######################################    
+Data prima quotazione: 1987-07-31    
+Data ultima quotazione: 2018-08-24    
+Variazione percentuale: 6749.977506144665    
+Prezzo massimo: 450.929992675781    
+Prezzo minimo: 2.0    
+#######################################    
+ABR    
+#######################################    
+Data prima quotazione: 2004-04-08    
+Data ultima quotazione: 2018-08-24    
+Variazione percentuale: -41.06705931471401    
+Prezzo massimo: 33.6699981689453    
+Prezzo minimo: 0.579999983310699    
+#######################################    
+ACAD    
+#######################################    
+Data prima quotazione: 2004-06-01    
+Data ultima quotazione: 2018-08-24    
+Variazione percentuale: 121.38462066650462    
+Prezzo massimo: 51.9900016784668    
+Prezzo minimo: 0.670000016689301    
+#######################################    
+ACBI    
+#######################################    
+Data prima quotazione: 2015-11-02    
+Data ultima quotazione: 2018-08-24    
+Variazione percentuale: 25.0    
+Prezzo massimo: 21.6000003814697    
+Prezzo minimo: 11.5500001907349	
