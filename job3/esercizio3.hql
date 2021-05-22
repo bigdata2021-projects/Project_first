@@ -15,7 +15,7 @@ CREATE TABLE historical_stock_prices_3Job (ticker_id STRING, open_act FLOAT, clo
 	FIELDS TERMINATED BY ','
         TBLPROPERTIES("skip.header.line.count"="1");
 
-LOAD DATA LOCAL INPATH '/home/piervy/Scrivania/historical_stock_prices_10000.csv'
+LOAD DATA LOCAL INPATH '/insert/your/path/file.csv'
                                       OVERWRITE INTO TABLE historical_stock_prices_3Job;
 
 CREATE TABLE historical_stock_3Job (ticker_id STRING, exchange1 STRING, name STRING, sector STRING,industry STRING) 
@@ -23,7 +23,7 @@ CREATE TABLE historical_stock_3Job (ticker_id STRING, exchange1 STRING, name STR
 	FIELDS TERMINATED BY ','
         TBLPROPERTIES("skip.header.line.count"="1");
 
-LOAD DATA LOCAL INPATH '/home/piervy/Scrivania/historical_stocks.csv'
+LOAD DATA LOCAL INPATH '/insert/your/path/file.csv'
                                       OVERWRITE INTO TABLE historical_stock_3Job;
 
 
@@ -38,7 +38,7 @@ CREATE TABLE historical_stock_join_2017 AS
              FROM historical_stock_3job, historical_stock_prices_3Job
              WHERE historical_stock_prices_3Job.ticker_id = historical_stock_3Job.ticker_id AND historical_stock_3Job.sector != "N/A" AND historical_stock_prices_3Job.date_act >= '2017-01-01' AND historical_stock_prices_3Job.date_act <= '2017-12-31';
 
-SELECT * FROM historical_stock_join_2017;
+
 
 /* Create TABLE for date min for any action*/
 CREATE TABLE mindate_action AS
@@ -46,14 +46,14 @@ CREATE TABLE mindate_action AS
        FROM historical_stock_join_2017
        GROUP BY ticker_id, month(date_act);
 
-SELECT * FROM mindate_action;
+
 
 CREATE TABLE maxdate_action AS
        SELECT ticker_id, month(date_act), MAX(date_act) AS last_date
        FROM historical_stock_join_2017
        GROUP BY ticker_id, month(date_act);
 
-SELECT * FROM maxdate_action;
+
 
 /* Create TABLE with date min and close for any action*/
 CREATE TABLE first_close_action_2017 AS
@@ -63,7 +63,6 @@ CREATE TABLE first_close_action_2017 AS
              WHERE t1.ticker_id = t2.ticker_id AND t1.date_act = t2.first_date;
 
 
-SELECT * FROM first_close_action_2017;
 
 CREATE TABLE last_close_action_2017 AS
              SELECT t2.ticker_id, t2.last_date , t1.close_act
@@ -71,8 +70,6 @@ CREATE TABLE last_close_action_2017 AS
                   maxdate_action AS t2
              WHERE t1.ticker_id = t2.ticker_id AND t1.date_act = t2.last_date;
 
-
-SELECT * FROM last_close_action_2017;
 
 /* Create TABLE for compute percentage variation for every action*/
 CREATE TABLE var_percent_for_ticker AS
@@ -86,7 +83,6 @@ CREATE TABLE var_percent_for_ticker AS
               AND month(t2.first_date) = month(t3.last_date);                   
               
 
-SELECT * FROM var_percent_for_ticker;
 
 /* Create TABLE for compute difference for any var_percent for next table */
 CREATE TABLE var_percent_action_with_treshold AS
@@ -104,8 +100,6 @@ CREATE TABLE var_percent_action_with_treshold AS
                AND t2.first_date = t1.first_date;
 
 
-SELECT * FROM var_percent_action_with_treshold;
-
 CREATE TABLE output_job3 AS
              SELECT t1.first_date AS month_date,
                     t1.ticker_id,
@@ -119,8 +113,21 @@ CREATE TABLE output_job3 AS
              ORDER BY month_date;
 
 
-SELECT * FROM output_job3;
+SELECT * FROM output_job3
+LIMIT 10;
 
+
+DROP TABLE IF EXISTS historical_stock_3Job;
+DROP TABLE IF EXISTS historical_stock_prices_3Job;
+DROP TABLE IF EXISTS historical_stock_join_2017;
+DROP TABLE IF EXISTS mindate_action;
+DROP TABLE IF EXISTS maxdate_action;
+DROP TABLE IF EXISTS var_percent_for_ticker;
+DROP TABLE IF EXISTS first_close_action_2017;
+DROP TABLE IF EXISTS last_close_action_2017;
+DROP TABLE IF EXISTS var_percent_for_ticker;
+DROP TABLE IF EXISTS var_percent_action_with_treshold;
+DROP TABLE IF EXISTS output_job3;
 
 
 
