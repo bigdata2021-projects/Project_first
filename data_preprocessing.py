@@ -25,4 +25,4 @@ def remove_commas_from_sector_names(path_to_filename: str):
 
 if __name__ == '__main__':
     remove_commas_from_sector_names("historical_stocks")
-    create_files_with_distict_dimension("historical_stock_prices.csv")
+    create_files_with_distinct_dimension("historical_stock_prices.csv")
